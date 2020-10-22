@@ -1,11 +1,8 @@
 ﻿using DotNES.Core;
 using DotNES.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES
 {
@@ -158,7 +155,7 @@ namespace DotNES
         [OpCode(opcode = 0x60, name = "RTS", bytes = 1)]
         private int RTS_Implied()
         {
-            _PC = (ushort)(popStack16()+1);
+            _PC = (ushort)(popStack16() + 1);
             return 6;
         }
 
@@ -735,7 +732,7 @@ namespace DotNES
         [OpCode(opcode = 0x1E, name = "ASL", bytes = 3)]
         private int ASL_AbsoluteX()
         {
-            ushort address = (ushort)((argOne16() + _X) );
+            ushort address = (ushort)((argOne16() + _X));
             byte val = console.memory.read8(address);
             byte newCarry = (byte)((val >> 7) & 1);
             val = (byte)(val << 1);
@@ -1394,7 +1391,7 @@ namespace DotNES
         {
             ushort addressWithoutY = console.memory.read16(argOne(), true);
             ushort addressWithY = (ushort)(addressWithoutY + _Y);
-            
+
             _A = console.memory.read8(addressWithY);
 
             setZeroForOperand(_A);
@@ -2256,14 +2253,14 @@ namespace DotNES
 
         private void pushStack16(ushort val)
         {
-            console.memory.write16(stackAddressOf((byte)(_S - 1)), (ushort)(val ));
+            console.memory.write16(stackAddressOf((byte)(_S - 1)), (ushort)(val));
             _S -= 2;
         }
 
         private ushort popStack16()
         {
             _S += 2;
-            return (ushort)(console.memory.read16(stackAddressOf((byte)(_S - 1)))  );
+            return (ushort)(console.memory.read16(stackAddressOf((byte)(_S - 1))));
         }
 
         private void pushStack8(byte val)
@@ -2363,7 +2360,7 @@ namespace DotNES
             // Jump to location pointed at by the reset vector
             pushStack16(_PC);
             pushStack8(_P);
-            
+
 
             _PC = console.memory.read16(0xFFFA);
             log.info("Jumped to NMI Vector @ {0:X}", _PC);

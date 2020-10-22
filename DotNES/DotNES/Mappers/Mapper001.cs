@@ -1,9 +1,5 @@
 ﻿using DotNES.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES.Mappers
 {
@@ -50,7 +46,7 @@ namespace DotNES.Mappers
             }
 
             int bank = (address - 0x8000) / 0x4000;
-            return cartridge.PRGRomData[PRGOffsets[bank] + (address &0x3FFF)];
+            return cartridge.PRGRomData[PRGOffsets[bank] + (address & 0x3FFF)];
         }
 
         public override byte readCHR(ushort address)
@@ -101,7 +97,7 @@ namespace DotNES.Mappers
 
         public override void write(ushort address, byte val)
         {
-            if(address < 0x6000)
+            if (address < 0x6000)
             {
                 // A couple of games have tried to write here. It's undefined behavior as far as I know.
                 return;
@@ -114,7 +110,7 @@ namespace DotNES.Mappers
                 PRG_RAM[offset] = val;
                 return;
             }
-            
+
 
             // Writing with bit 7 set, this write just resets the shift register
             if ((val & 0x80) != 0)
@@ -133,7 +129,7 @@ namespace DotNES.Mappers
             shift_register_write_counter++;
 
             // Should we do an actual write?
-            if(shift_register_write_counter == 5)
+            if (shift_register_write_counter == 5)
             {
                 if (address < 0xA000)
                 {

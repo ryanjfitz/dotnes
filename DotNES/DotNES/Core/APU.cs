@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Xna.Framework.Audio;
 using DotNES.Utilities;
 using NAudio.Wave;
 
@@ -257,7 +252,8 @@ namespace DotNES.Core
             {
                 if (pulse.envelope_volume == 0)
                 {
-                    if(pulse.ENVELOPE_LOOP) {
+                    if (pulse.ENVELOPE_LOOP)
+                    {
                         pulse.envelope_volume = 15;
                     }
                 }
@@ -299,7 +295,8 @@ namespace DotNES.Core
 
         private void tickSweep(Pulse pulse)
         {
-            if (pulse.sweep_period_counter == 0) {
+            if (pulse.sweep_period_counter == 0)
+            {
                 if (pulse.SWEEP_ENABLED)
                 {
                     int periodAdjustment = pulse.TIMER >> pulse.SWEEP_SHIFT;

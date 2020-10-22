@@ -1,17 +1,13 @@
 ﻿using DotNES.Mappers;
 using DotNES.Utilities;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES.Core
 {
     public class Cartridge
     {
-        private Logger log = new Logger( "Cartridge" );
+        private Logger log = new Logger("Cartridge");
         public byte[] PRGRomData;
         public byte[] CHRRomData;
 
@@ -72,7 +68,7 @@ namespace DotNES.Core
                 log.error("ROM is PAL. This is unsupported...");
                 throw new NotImplementedException();
             }
-            
+
             if ((flag6 & 2) == 1)
             {
                 BatteryBackedRAM = true;

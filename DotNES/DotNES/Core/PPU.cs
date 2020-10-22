@@ -1,9 +1,5 @@
 ﻿using DotNES.Utilities;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES.Core
 {
@@ -174,7 +170,7 @@ namespace DotNES.Core
             {
                 byte sprite_y = (byte)(OAM[oam_index * 4 + 0] + 1);
                 int max_y_offset = mode816 ? 16 : 8;
-                
+
                 if (scanline >= sprite_y && (scanline < sprite_y + max_y_offset))
                 {
                     oam_temp[sprite_count] = oam_index;
@@ -193,7 +189,7 @@ namespace DotNES.Core
             int image_index = py * 256 + px;
 
             if ((_PPUMASK & 4) == 0 && px < 8) return;
-            
+
             // Check each sprite 
             for (int spr_index = 0; spr_index < sprite_count; ++spr_index)
             {
@@ -208,7 +204,7 @@ namespace DotNES.Core
                 bool inFrontOfBG = (attributes & 0x20) == 0;
                 bool flipHorizontal = (attributes & 0x40) != 0;
                 bool flipVertical = (attributes & 0x80) != 0;
-                
+
                 // Sprites are never drawn on if their y-coord is 0
                 if (sprite_y == 0 || sprite_y >= 240)
                     continue;
@@ -268,7 +264,7 @@ namespace DotNES.Core
 
                     int i = flipHorizontal ? 7 - ti : ti;
                     int j = flipVertical ? 7 - tj : tj;
-                    
+
                     ushort sprite_pattern_table_base = (ushort)((_PPUCTRL & 8) == 0 ? 0x0000 : 0x1000);
                     byte lowBits = getPatternTable((ushort)(sprite_pattern_table_base + pt_index * 16 + j));
                     byte highBits = getPatternTable((ushort)(sprite_pattern_table_base + pt_index * 16 + j + 8));
@@ -276,7 +272,7 @@ namespace DotNES.Core
                     byte lowBit = (byte)((lowBits >> (7 - i)) & 1);
                     byte highBit = (byte)((highBits >> (7 - i)) & 1);
                     byte color_index = (byte)(lowBit + highBit * 2);
-                    
+
                     if (color_index > 0)
                     {
                         // Sprite Zero Hit?
@@ -353,7 +349,7 @@ namespace DotNES.Core
             // -1      : Pre-scanline        0-239   : Visible scanlines
             // 240     : Nada?               241-260 : Vertical Blanking
 
-            if(scanline == -1 && x == 0)
+            if (scanline == -1 && x == 0)
             {
                 // We're no longer in VBlank region
                 _PPUSTATUS &= 0x7F;

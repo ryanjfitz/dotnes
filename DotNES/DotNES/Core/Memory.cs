@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DotNES.Core
+﻿namespace DotNES.Core
 {
     public class Memory
     {
@@ -34,7 +28,7 @@ namespace DotNES.Core
                 // 0x2000 - 0x2007 repeats every 8 bytes up until 0x3FFF
                 console.ppu.write((ushort)(0x2000 + (addr & 7)), val);
             }
-            else if(addr == 0x4014)
+            else if (addr == 0x4014)
             {
                 // 0x4014 - writing $XX initiates OAM DMA from $XX00-$XXFF to PPU OAM Memory
                 console.ppu.write(addr, val);
@@ -99,9 +93,9 @@ namespace DotNES.Core
             if (pageWrap)
             {
                 ushort lowByte = addr;
-                ushort highByte = (ushort)((addr&0xFF) == 0xFF ? addr & 0xFF00 : addr + 1);
+                ushort highByte = (ushort)((addr & 0xFF) == 0xFF ? addr & 0xFF00 : addr + 1);
 
-                return (ushort)( (read8(highByte) << 8) | read8(lowByte));
+                return (ushort)((read8(highByte) << 8) | read8(lowByte));
             }
             else
             {

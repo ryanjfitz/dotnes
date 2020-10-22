@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES.Core
 {
@@ -208,7 +206,7 @@ namespace DotNES.Core
     {
         private NESConsole console;
         private int playerNumber;
-        public int PlayerNumber {  get { return playerNumber; } }
+        public int PlayerNumber { get { return playerNumber; } }
 
         // RLDUTSBA
         private byte[] keysForFrame;
@@ -222,7 +220,7 @@ namespace DotNES.Core
             keysForFrame = new byte[lines.Length];
 
             int frame = 0;
-            foreach(string line in lines)
+            foreach (string line in lines)
             {
                 byte keys = 0;
                 if (line.Substring(3, 12).Contains("R")) keys |= 0x80;

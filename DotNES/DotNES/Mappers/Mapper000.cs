@@ -1,9 +1,5 @@
 ﻿using DotNES.Core;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DotNES.Mappers
 {
@@ -24,14 +20,14 @@ namespace DotNES.Mappers
 
         public override byte read(ushort address)
         {
-            if(address < 0x8000)
+            if (address < 0x8000)
             {
                 Console.Error.WriteLine(string.Format("Invalid read to NROM Mapper @ {0:X4}", address));
                 return 0;
             }
 
             int base_address;
-            if(cartridge.PRGROM_16KBankCount == 1)
+            if (cartridge.PRGROM_16KBankCount == 1)
             {
                 base_address = (ushort)(address >= 0xC000 ? 0xC000 : 0x8000);
             }
@@ -46,7 +42,7 @@ namespace DotNES.Mappers
 
         public override byte readCHR(ushort address)
         {
-            return cartridge.CHRRomData[address % (this.cartridge.CHRROM_8KBankCount * 0x2000) ];
+            return cartridge.CHRRomData[address % (this.cartridge.CHRROM_8KBankCount * 0x2000)];
         }
 
         public override void write(ushort address, byte val)
