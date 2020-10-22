@@ -16,7 +16,6 @@ namespace DotNES.Core
         public int CHRROM_8KBankCount { get; private set; }
         public int MapperNumber { get; private set; }
         public bool BatteryBackedRAM { get; private set; }
-        public bool isNTSC { get; private set; }
 
         public NametableMirroringMode NametableMirroring { get; set; }
 
@@ -62,13 +61,6 @@ namespace DotNES.Core
                 throw new NotImplementedException();
             }
 
-            isNTSC = (flag10 & 1) == 0;
-            if (!isNTSC)
-            {
-                log.error("ROM is PAL. This is unsupported...");
-                throw new NotImplementedException();
-            }
-
             if ((flag6 & 2) == 1)
             {
                 BatteryBackedRAM = true;
@@ -88,7 +80,6 @@ namespace DotNES.Core
             log.info("ROM Details --");
             log.info(" * Mapper #{0}", MapperNumber);
             log.info(" * Nametable mirroring mode is {0}.", NametableMirroring.ToString());
-            log.info(" * {0} Output", isNTSC ? "NTSC" : "PAL");
             if (BatteryBackedRAM) log.info(" * Battery-backed RAM ('Game Saves' supported)");
 
             log.info(" * ROM Bank Data");
