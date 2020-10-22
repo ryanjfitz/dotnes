@@ -16,7 +16,7 @@ namespace DotNES
         Cartridge cart;
         NESConsole system;
 
-        public NESEmulator()
+        public NESEmulator(string romPath)
         {
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferWidth = 512;
@@ -24,12 +24,12 @@ namespace DotNES
             IsMouseVisible = true;
             Window.AllowUserResizing = true;
 
-            initializeSystem();
+            initializeSystem(romPath);
         }
 
-        private void initializeSystem()
+        private void initializeSystem(string romPath)
         {
-            cart = new Cartridge("C:\\roms\\lolo.nes");
+            cart = new Cartridge(romPath);
             system = new NESConsole(cart);
             system.cpu.coldBoot();
             system.ppu.coldBoot();
